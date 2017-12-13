@@ -7,7 +7,9 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.get('/compteFinancier', function(req, res) {
   res.set('Content-Type', 'text/xml');
-  return res.render('compteFinancier');
+  return res.render('compteFinancier',{
+    epj: req.params
+  });
 });
 app.get('/estFacture', function(req, res) {
   res.set('Content-Type', 'text/xml');
