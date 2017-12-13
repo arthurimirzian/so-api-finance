@@ -6,9 +6,25 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.get('/compteFinancier', function(req, res) {
+  const basic = req.get('Authorization');
+  if(basic==null||basic==''){
+    res.status('403')
+    return res.render('error',{
+      message: 'Forbidden'
+    });
+  }
+  if(Buffer.from(basic.replace("Basic ", ""), 'base64').toString()!='crm:ModisFrance!'){
+    res.status('403')
+    return res.render('error',{
+      message: 'Forbidden'
+    });
+  }
   const epj = req.query.EPJ;
   if(epj==null||epj==''){
-    return res.render('error');
+    res.status('500')
+    return res.render('error',{
+      message: 'Paramètre EPJ absent.'
+    });
   }
   res.set('Content-Type', 'text/xml');
   return res.render('compteFinancier',{
@@ -16,10 +32,25 @@ app.get('/compteFinancier', function(req, res) {
   });
 });
 app.get('/estFacture', function(req, res) {
+  const basic = req.get('Authorization');
+  if(basic==null||basic==''){
+    res.status('403')
+    return res.render('error',{
+      message: 'Forbidden'
+    });
+  }
+  if(Buffer.from(basic.replace("Basic ", ""), 'base64').toString()!='crm:ModisFrance!'){
+    res.status('403')
+    return res.render('error',{
+      message: 'Forbidden'
+    });
+  }
   const epj = req.query.EPJ;
-  console.log(req.query)
   if(epj==null||epj==''){
-    return res.render('error');
+    res.status('500')
+    return res.render('error',{
+      message: 'Paramètre EPJ absent.'
+    });
   }
   res.set('Content-Type', 'text/xml');
   return res.render('estFacture',{
