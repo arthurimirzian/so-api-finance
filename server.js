@@ -6,7 +6,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.get('/compteFinancier', function(req, res) {
-  const epj = req.params.EPJ;
+  const epj = req.query.EPJ;
   if(epj==null||epj==''){
     return res.render('error');
   }
@@ -16,7 +16,8 @@ app.get('/compteFinancier', function(req, res) {
   });
 });
 app.get('/estFacture', function(req, res) {
-  const epj = req.params.EPJ;
+  const epj = req.query.EPJ;
+  console.log(req.query)
   if(epj==null||epj==''){
     return res.render('error');
   }
