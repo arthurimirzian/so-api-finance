@@ -16,7 +16,7 @@ app.get('/compteFinancier', function(req, res) {
   }
   var username = process.env.USERNAME;
   var password = process.env.PASSWORD;
-  if(Buffer.from(basic.replace("Basic ", ""), 'base64').toString()!=username:password){
+  if(Buffer.from(basic.replace("Basic ", ""), 'base64').toString()!=username+':'+password){
     res.status('403')
     return res.render('error',{
       message: 'Forbidden'
