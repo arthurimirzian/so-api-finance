@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express     = require('express')
   , app 	    = express()
 ;
@@ -13,7 +14,9 @@ app.get('/compteFinancier', function(req, res) {
       message: 'Forbidden'
     });
   }
-  if(Buffer.from(basic.replace("Basic ", ""), 'base64').toString()!='crm:ModisFrance!'){
+  var username = process.env.USERNAME;
+  var password = process.env.PASSWORD;
+  if(Buffer.from(basic.replace("Basic ", ""), 'base64').toString()!=username:password){
     res.status('403')
     return res.render('error',{
       message: 'Forbidden'

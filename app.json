@@ -1,0 +1,8 @@
+{
+    "name": "API Finance",
+    "env": {
+        "SECRET": "",
+        "USERNAME": "",
+        "PASSWORD": ""
+    }
+}
