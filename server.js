@@ -1,11 +1,13 @@
 require('dotenv').config();
-var express     = require('express')
-  , app 	    = express()
+var express = require('express')
+  , app = express()
+  , base64 = require('file-base64')
 ;
 app.set('port', (process.env.PORT || 5000));
-app.use(express.static(__dirname + '/public'));
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+
 app.get('/compteFinancier', function(req, res) {
   const basic = req.get('Authorization');
   if(basic==null||basic==''){
@@ -58,6 +60,15 @@ app.get('/estFacture', function(req, res) {
   res.set('Content-Type', 'text/xml');
   return res.render('estFacture',{
     is: (parseInt(epj) % 2)
+  });
+});
+app.get('/getFactureBase64', function(req, res) {
+  console.log('ok')
+  base64.encode('test.pdf', function(err, base64String) {
+    if(err) console.error(err);
+    return res.render('factureBase64',{
+      base64: base64String
+    });
   });
 });
 app.listen(app.get('port'), function() {
