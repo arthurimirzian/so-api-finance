@@ -67,7 +67,7 @@ app.get('/getFactureBase64', function(req, res) {
   base64.encode('test.pdf', function(err, base64String) {
     if(err) console.error(err);
     return res.render('factureBase64',{
-      base64: ""
+      base64: base64String
     });
   });
 });
