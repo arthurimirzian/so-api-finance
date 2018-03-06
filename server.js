@@ -9,6 +9,8 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/compteFinancier', function(req, res) {
+  console.log( req.headers['x-forwarded-for'] );
+  console.log( req.connection.remoteAddress )
   const basic = req.get('Authorization');
   if(basic==null||basic==''){
     res.status('403')
